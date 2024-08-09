@@ -1,0 +1,11 @@
+import{i as l,S as m}from"./assets/vendor-8c59ed88.js";(function(){const r=document.createElement("link").relList;if(r&&r.supports&&r.supports("modulepreload"))return;for(const e of document.querySelectorAll('link[rel="modulepreload"]'))s(e);new MutationObserver(e=>{for(const t of e)if(t.type==="childList")for(const i of t.addedNodes)i.tagName==="LINK"&&i.rel==="modulepreload"&&s(i)}).observe(document,{childList:!0,subtree:!0});function n(e){const t={};return e.integrity&&(t.integrity=e.integrity),e.referrerPolicy&&(t.referrerPolicy=e.referrerPolicy),e.crossOrigin==="use-credentials"?t.credentials="include":e.crossOrigin==="anonymous"?t.credentials="omit":t.credentials="same-origin",t}function s(e){if(e.ep)return;e.ep=!0;const t=n(e);fetch(e.href,t)}})();const y="45358562-a6f601b45a643dd81cb1b87d3",h="https://pixabay.com/api/";async function g(o){const r=await fetch(`${h}?key=${y}&q=${encodeURIComponent(o)}&image_type=photo&orientation=horizontal&safesearch=true`);if(!r.ok)throw new Error("Failed to fetch images");return(await r.json()).hits}function b(o){const r=document.getElementById("gallery");r.innerHTML="";const n=o.map(({webformatURL:s,largeImageURL:e,tags:t,likes:i,views:f,comments:u,downloads:p})=>`
+        <a href="${e}" class="gallery-item">
+            <img src="${s}" alt="${t}" />
+            <div class="info">
+                <p> Likes ${i}</p>
+                <p> Views ${f}</p>
+                <p> Comments ${u}</p>
+                <p> Downloads ${p}</p>
+            </div>
+        </a>`).join("");r.insertAdjacentHTML("beforeend",n)}function c(o){console.error("Rendering error message:",o),l.error({title:"Error",message:o,position:"topRight"})}let a;const d=document.querySelector("#loader");document.querySelector("#search-form").addEventListener("submit",async function(o){o.preventDefault();const r=document.getElementById("search-input").value.trim();if(r===""){l.error({title:"Error",message:"Search field cannot be empty.",position:"topRight"});return}L();try{const n=await g(r);n.length>0?(b(n),E()):c("Sorry, there are no images matching your search query. Please try again!")}catch(n){c(n.message)}finally{w()}});function L(){d.style.display="block"}function w(){d.style.display="none"}function E(){a?a.refresh():a=new m(".gallery-item",{captionsData:"alt",captionDelay:250})}
+//# sourceMappingURL=commonHelpers.js.map
